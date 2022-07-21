@@ -81,7 +81,7 @@ for index, predicted_class in enumerate(pred_indices):
     #true_label = class_names[ test_labels[index] ]
     file_name = os.path.basename(file_path)
     
-    json_string = f'{{ "annotation": {{ "inference": {{ "label": "{pred_label}", "confidence": {confidence} }} }}, "ldb_meta": {{ "data_object_id": "{md5}" }} }}'
+    json_string = f'{{ "annotation": {{ "inference": {{ "label": "{pred_label}", "confidence": {confidence} }} }}, "data-object-info": {{ "md5": "{md5}" }} }}'
     # print(json_string)
     json_data = json.loads(json_string)
     with open(predictions_folder + file_name + '.json', 'w', encoding='utf-8') as f:
