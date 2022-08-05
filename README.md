@@ -1,3 +1,3 @@
-# hackathon-ldb
+# testing-ldb
 
 Template for external testers
