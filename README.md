@@ -1,3 +1,3 @@
 # hackathon-ldb
 
-Template for your team blog
+Template for external testers
