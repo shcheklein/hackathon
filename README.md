@@ -1,3 +1,3 @@
-# testing-ldb
+# Hackathon code starter
 
-Template for external testers
+Training and inference template
