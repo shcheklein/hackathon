@@ -1,0 +1,11 @@
+stages:
+  train:
+    cmd: python train.py
+    deps:
+    - data
+    - train.py
+    params:
+    - epochs
+    metrics:
+    - dvclive.json:
+        cache: false

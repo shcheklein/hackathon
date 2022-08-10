@@ -10,6 +10,11 @@ from keras import callbacks
 import numpy as np
 import json
 import sys
+from dvclive.keras import DvcLiveCallback
+import dvc.api
+from dvclive import Live
+
+params = params = dvc.api.params_show()
 
 directory = "./data"
 user_data = directory 
@@ -97,8 +102,8 @@ if __name__ == "__main__":
     history = model.fit(
         train,
         validation_data=valid,
-        epochs=100,
-        callbacks=[checkpoint],
+        epochs=params['epochs'],
+        callbacks=[checkpoint, DvcLiveCallback()],
     )
 
     model.load_weights("best_model")
