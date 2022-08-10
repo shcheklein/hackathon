@@ -77,7 +77,7 @@ if __name__ == "__main__":
     model = tf.keras.Model(inputs, x)
 
     model.compile(
-        optimizer=tf.keras.optimizers.Adam(lr=0.0001),
+        optimizer=tf.keras.optimizers.Adam(learning_rate=0.01),
         loss=tf.keras.losses.CategoricalCrossentropy(from_logits=True),
         metrics=["accuracy"],
     )
