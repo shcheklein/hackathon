@@ -8,12 +8,24 @@ stages:
       size: 359250756
       nfiles: 2035
     - path: train.py
-      md5: 368e19f106132069bac4458437ab5c06
-      size: 3576
+      md5: cbba180a2f4d81b8b2155d8b43f72cd5
+      size: 3729
     params:
       params.yaml:
-        epochs: 10
+        epochs: 2
     outs:
     - path: dvclive.json
-      md5: 0db1cbcd82efb4074c25ab408e4f014b
-      size: 210
+      md5: 55325124c4931a76c250d9c1acbd8d94
+      size: 211
+    - path: dvclive/scalars/eval/accuracy.tsv
+      md5: aeb45630c43203e491c05c964bd967d8
+      size: 103
+    - path: dvclive/scalars/eval/loss.tsv
+      md5: c1c21bd84a93bfb55cb56ba9a2538a28
+      size: 98
+    - path: dvclive/scalars/train/accuracy.tsv
+      md5: a126a8f8865ffce38bd264bdac45efa9
+      size: 103
+    - path: dvclive/scalars/train/loss.tsv
+      md5: a0d2f2054d2df67c3e71569f005ebd3f
+      size: 99

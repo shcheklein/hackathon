@@ -15,6 +15,7 @@ import dvc.api
 from dvclive import Live
 
 params = params = dvc.api.params_show()
+live = Live("evaluation")
 
 directory = "./data"
 user_data = directory 
@@ -113,3 +114,10 @@ if __name__ == "__main__":
 
     test_loss, test_acc = model.evaluate(test)
     print(f"test loss {test_loss}, test acc {test_acc}")
+
+    live.log("loss", loss)
+    live.log("acc", acc)
+    live.log("test_loss", test_loss)
+    live.log("test_acc", test_acc)
+
+

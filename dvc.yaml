@@ -9,3 +9,23 @@ stages:
     metrics:
     - dvclive.json:
         cache: false
+    - evaluation.json:
+        cache: false
+    plots:
+    - dvclive/scalars/eval/accuracy.tsv:
+        cache: false
+        x: step
+        y: eval/accuracy
+    - dvclive/scalars/train/accuracy.tsv:
+        cache: false
+        x: step
+        y: train/accuracy
+    - dvclive/scalars/eval/loss.tsv:
+        cache: false
+        x: step
+        y: eval/loss
+    - dvclive/scalars/train/loss.tsv:
+        cache: false
+        x: step
+        y: train/loss
+
