@@ -58,3 +58,18 @@ stages:
       md5: fb56d31bfb2d2146da864cc0ed7eae65.dir
       size: 438671
       nfiles: 2005
+  misclassification:
+    cmd:
+    - ldb index predictions/ --annotation-update merge
+    - ldb instantiate ds:root --query 'inference.confidence > `0.8` && label != inference.label'
+      --target ./mispredicted
+    deps:
+    - path: predictions
+      md5: fb56d31bfb2d2146da864cc0ed7eae65.dir
+      size: 438671
+      nfiles: 2005
+    outs:
+    - path: mispredicted
+      md5: aa20b0761eea260086c650d2b1e9c9f2.dir
+      size: 29495443
+      nfiles: 288

@@ -45,6 +45,6 @@ stages:
     - ldb instantiate ds:root --query 'inference.confidence > `0.8` && label != inference.label' --target ./mispredicted
     deps:
     - predictions
-    outs:
-    - mispredicted
+    plots:
+    - mispredicted/
 
