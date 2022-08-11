@@ -92,7 +92,7 @@ if __name__ == "__main__":
     print(f"loss {loss_0}, acc {acc_0}")
 
     checkpoint = tf.keras.callbacks.ModelCheckpoint(
-        "best_model",
+        "model/best_model",
         monitor="val_accuracy",
         mode="max",
         verbose=1,
@@ -107,7 +107,7 @@ if __name__ == "__main__":
         callbacks=[checkpoint, DvcLiveCallback()],
     )
 
-    model.load_weights("best_model")
+    model.load_weights("model/best_model")
 
     loss, acc = model.evaluate(valid)
     print(f"final loss {loss}, final acc {acc}")

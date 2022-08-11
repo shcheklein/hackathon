@@ -4,6 +4,7 @@ stages:
     deps:
     - data
     - train.py
+    - requirements.txt
     params:
     - epochs
     metrics:
@@ -11,6 +12,8 @@ stages:
         cache: false
     - evaluation.json:
         cache: false
+    outs:
+    - model
     plots:
     - dvclive/scalars/eval/accuracy.tsv:
         cache: false
@@ -28,4 +31,11 @@ stages:
         cache: false
         x: step
         y: train/loss
-
+  inference:
+    cmd: python inference.py ./data
+    deps:
+    - model
+    - data
+    - inference.py
+    outs:
+    - predictions

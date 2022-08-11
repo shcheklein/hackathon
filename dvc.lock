@@ -7,9 +7,12 @@ stages:
       md5: aa8288eac926ff38b230ed8d5e1dfd23.dir
       size: 359250756
       nfiles: 2035
+    - path: requirements.txt
+      md5: 5e4668031b7a851e85559535ee915bc6
+      size: 18
     - path: train.py
-      md5: cbba180a2f4d81b8b2155d8b43f72cd5
-      size: 3729
+      md5: 5ca8bcdcff40d2eea929628131aa53c6
+      size: 3741
     params:
       params.yaml:
         epochs: 2
@@ -18,14 +21,21 @@ stages:
       md5: 55325124c4931a76c250d9c1acbd8d94
       size: 211
     - path: dvclive/scalars/eval/accuracy.tsv
-      md5: aeb45630c43203e491c05c964bd967d8
+      md5: 8c2dd95e4469f993255a99caba337809
       size: 103
     - path: dvclive/scalars/eval/loss.tsv
-      md5: c1c21bd84a93bfb55cb56ba9a2538a28
+      md5: b4a79ec7a5402ec36b99253546164316
       size: 98
     - path: dvclive/scalars/train/accuracy.tsv
-      md5: a126a8f8865ffce38bd264bdac45efa9
+      md5: 2d0acf62b5f2903af76ca369491c2e07
       size: 103
     - path: dvclive/scalars/train/loss.tsv
-      md5: a0d2f2054d2df67c3e71569f005ebd3f
+      md5: 2e0aed805a639eb65994d79097375334
       size: 99
+    - path: evaluation.json
+      md5: d4b31f024241feac75f3cafff8dc470b
+      size: 140
+    - path: model
+      md5: 39c75b5b50b2b043086fe4e9ee380bf8.dir
+      size: 2784925
+      nfiles: 3
