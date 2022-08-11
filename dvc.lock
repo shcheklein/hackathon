@@ -39,3 +39,22 @@ stages:
       md5: 39c75b5b50b2b043086fe4e9ee380bf8.dir
       size: 2784925
       nfiles: 3
+  inference:
+    cmd: python inference.py ./data
+    deps:
+    - path: data
+      md5: aa8288eac926ff38b230ed8d5e1dfd23.dir
+      size: 359250756
+      nfiles: 2035
+    - path: inference.py
+      md5: 59426c0b1777dcfc0c8a340b0550e487
+      size: 2866
+    - path: model
+      md5: 39c75b5b50b2b043086fe4e9ee380bf8.dir
+      size: 2784925
+      nfiles: 3
+    outs:
+    - path: predictions
+      md5: fb56d31bfb2d2146da864cc0ed7eae65.dir
+      size: 438671
+      nfiles: 2005
