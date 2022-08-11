@@ -4,3 +4,5 @@ data/
 model/
 /predictions
 /mispredicted
+/model
+.vscode
