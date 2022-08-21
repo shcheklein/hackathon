@@ -13,6 +13,7 @@ import sys
 from dvclive.keras import DvcLiveCallback
 import dvc.api
 from dvclive import Live
+import datetime
 
 params = params = dvc.api.params_show()
 live = Live("evaluation")
@@ -20,6 +21,11 @@ live = Live("evaluation")
 directory = "./data"
 user_data = directory 
 test_data = directory + "/labelbook" # this can be the labelbook, or any other test set you create
+log_dir="logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+
+tensorboard_callback = tf.keras.callbacks.TensorBoard(
+    log_dir=log_dir, histogram_freq=1)
+
 
 ### DO NOT MODIFY BELOW THIS LINE, THIS IS THE FIXED MODEL ###
 batch_size = 8
@@ -104,7 +110,7 @@ if __name__ == "__main__":
         train,
         validation_data=valid,
         epochs=params['epochs'],
-        callbacks=[checkpoint, DvcLiveCallback()],
+        callbacks=[checkpoint, DvcLiveCallback(), tensorboard_callback],
     )
 
     model.load_weights("model/best_model")

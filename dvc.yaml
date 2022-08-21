@@ -1,8 +1,9 @@
 stages:
   train:
-    cmd: python train.py
+    cmd: 
+    - python train.py
     deps:
-    - data
+    - data/.ldb_workspace
     - train.py
     - requirements.txt
     params:
@@ -35,7 +36,6 @@ stages:
     cmd: python inference.py ./data
     deps:
     - model
-    - data
     - inference.py
     outs:
     - predictions
@@ -43,10 +43,11 @@ stages:
     cmd: 
     - ldb index predictions/ --annotation-update merge
     - ldb instantiate ds:root --query 'inference.confidence > `0.9` && label != inference.label' --target ./mispredicted
-    - rm -f mispredicted/*.json
+    - mv mispredicted/*.json mispredicted-json/
     deps:
     - predictions
+    outs:
+    - mispredicted-json/
     plots:
     - mispredicted/
-    
     
