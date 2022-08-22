@@ -1,40 +1,37 @@
 #!/usr/bin/env python3
 import json
 import os
-import shutil
 import sys
-from math import cos, pi, sin
 from typing import Dict, Sequence
 
 from PIL import Image, ImageOps
 
 
-def main(inp: Dict[str, str], argv: Sequence[str] = ()) -> None:
-    data_object_path = inp["data_object"]
-    annotation_path = inp["annotation"]
-    output_dir = inp["output_dir"]
-    transform_name = inp["transform_name"]
+def main(argv: Sequence[str] = ()) -> None:
+    source_dir = argv[0]
+    output_dir = argv[1]
     
-    orig_image = Image.open(data_object_path)
-    prefix, ext = os.path.splitext(os.path.basename(data_object_path))
-    
-    if ext.lstrip("."):
-        fmt = None
-    else:
-        fmt = orig_image.format or "PNG"
-        ext = ""
-    
-    new_image = ImageOps.fit(orig_image, (256, 256))
-    file_name_base = f"{prefix}--{transform_name}".replace(
-        ".",
-        "-",
-    )
-    obj_file_path = os.path.join(output_dir, f"{file_name_base}{ext}")
-    annot_file_path = os.path.join(output_dir, f"{file_name_base}.json")
-    rgb_im = new_image.convert('RGB')
-    rgb_im.save(obj_file_path, format=fmt)
-    shutil.copy2(annotation_path, annot_file_path)
+    print(f'Resizing files from {source_dir} to {output_dir}', file=sys.stderr)
+
+    for root, dirs, files in os.walk(source_dir):
+        for entry in files:
+            source_object_path = os.path.join(root, entry)
+            orig_image = Image.open(source_object_path)
+            prefix, ext = os.path.splitext(entry)
+            
+            if ext.lstrip("."):
+                fmt = None
+            else:
+                fmt = orig_image.format or "PNG"
+                ext = ""
+            
+            print(f'Processing {source_object_path}', file=sys.stderr)
+            new_image = ImageOps.fit(orig_image, (256, 256))
+            dest_object_path = os.path.join(output_dir, entry)
+            rgb_im = new_image.convert('RGB')
+            print(f'Saving {dest_object_path}', file=sys.stderr)
+            rgb_im.save(dest_object_path, format=fmt)
 
 
 if __name__ == "__main__":
-    main(json.loads(sys.stdin.read()), sys.argv)
+    main(json.loads(sys.stdin.read()))
