@@ -71,19 +71,14 @@ pred_indices = np.argmax(predict,-1)
 os.mkdir(predictions_folder)
 for index, predicted_class in enumerate(pred_indices):
     file_path = test.file_paths[index]
-    with open(file_path, 'rb') as file_to_check:
-        # read contents of the file
-        data = file_to_check.read()    
-        # pipe contents of the file through
-        md5 = hashlib.md5(data).hexdigest()
-        
+    file_name = os.path.basename(file_path)
+    md5 = os.path.splitext(file_name)[0].split('-')[-1]
+
     pred_label = class_names[pred_indices[index]]
     confidence = predicted_probs[index,pred_indices[index]]
-    #true_label = class_names[ test_labels[index] ]
-    file_name = os.path.basename(file_path)
-    
+
     json_string = f'{{ "annotation": {{ "inference": {{ "label": "{pred_label}", "confidence": {confidence} }} }}, "data-object-info": {{ "md5": "{md5}" }} }}'
-    # print(json_string)
+
     json_data = json.loads(json_string)
     with open(predictions_folder + file_name + '.json', 'w', encoding='utf-8') as f:
         json.dump(json_data, f, ensure_ascii=False, indent=4)

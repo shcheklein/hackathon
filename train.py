@@ -16,7 +16,7 @@ from dvclive import Live
 import datetime
 
 params = params = dvc.api.params_show()
-live = Live("evaluation")
+live = Live("evaluation", report=None)
 
 directory = "./data"
 user_data = directory 

@@ -2,7 +2,9 @@
 # Except this file
 data/
 model/
+predictions/
+mispredicted/
+.vscode/
+mispredicted-json/
+logs/
 /predictions
-/mispredicted
-/model
-.vscode
