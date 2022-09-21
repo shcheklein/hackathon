@@ -3,19 +3,20 @@
 # You may also find it helpful to take a look at the training script to get a
 # better sense of the preprocessing and model (these are held fixed). The script
 # will resize all images to (256, 256) and run them through a cut off ResNet50
+import json
+import sys
+import yaml
+import datetime
 
 import tensorflow as tf
 from tensorflow import keras
 from keras import callbacks
 import numpy as np
-import json
-import sys
 from dvclive.keras import DvcLiveCallback
-import dvc.api
 from dvclive import Live
-import datetime
 
-params = params = dvc.api.params_show()
+
+params = yaml.safe_load(open("params.yaml"))
 live = Live("evaluation", report=None)
 
 directory = "./data"
@@ -122,5 +123,3 @@ if __name__ == "__main__":
     live.log("best_acc", acc)
     live.log("best_test_loss", test_loss)
     live.log("best_test_acc", test_acc)
-
-

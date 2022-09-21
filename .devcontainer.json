@@ -8,5 +8,5 @@
           "installCudnn": true
       }
   },
-  "postCreateCommand": "pip3 install --user -r src/requirements.txt"
+  "postCreateCommand": "pip3 install --user -r requirements.txt"
 }
