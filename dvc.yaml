@@ -3,7 +3,7 @@ stages:
     cmd: 
     - python train.py
     deps:
-    - data/.ldb_workspace
+    - data/
     - train.py
     - requirements.txt
     params:
@@ -15,7 +15,6 @@ stages:
         cache: false
     outs:
     - model
-    - logs
     plots:
     - dvclive/scalars/eval/accuracy.tsv:
         cache: false
@@ -34,21 +33,14 @@ stages:
         x: step
         y: train/loss
   inference:
-    cmd: python inference.py ./data
+    cmd: python inference.py data/
     deps:
+    - data
     - model
     - inference.py
     outs:
     - predictions
-  misclassification:
-    cmd: 
-    - ldb index predictions/ --annotation-update merge
-    - ldb instantiate ds:root --query 'inference.confidence > `0.9` && label != inference.label' --target ./mispredicted
-    - mkdir mispredicted-json/
-    - mv mispredicted/*.json mispredicted-json/
-    deps:
-    - predictions
-    outs:
-    - mispredicted-json/
+    - mispredicted
     plots:
-    - mispredicted/
+    - mispredicted
+

@@ -5,6 +5,3 @@ model/
 predictions/
 mispredicted/
 .vscode/
-mispredicted-json/
-logs/
-/predictions

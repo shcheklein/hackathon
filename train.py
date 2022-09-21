@@ -26,11 +26,8 @@ log_dir="logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 tensorboard_callback = tf.keras.callbacks.TensorBoard(
     log_dir=log_dir, histogram_freq=1)
 
-
-### DO NOT MODIFY BELOW THIS LINE, THIS IS THE FIXED MODEL ###
 batch_size = 8
 tf.random.set_seed(123)
-
 
 if __name__ == "__main__":
     train = tf.keras.preprocessing.image_dataset_from_directory(
@@ -121,9 +118,9 @@ if __name__ == "__main__":
     test_loss, test_acc = model.evaluate(test)
     print(f"test loss {test_loss}, test acc {test_acc}")
 
-    live.log("loss", loss)
-    live.log("acc", acc)
-    live.log("test_loss", test_loss)
-    live.log("test_acc", test_acc)
+    live.log("best_loss", loss)
+    live.log("best_acc", acc)
+    live.log("best_test_loss", test_loss)
+    live.log("best_test_acc", test_acc)
 
 

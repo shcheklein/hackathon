@@ -1,0 +1,13 @@
+{
+  "name": "example-get-started",
+  "image": "mcr.microsoft.com/devcontainers/python:3",
+  "extensions": ["Iterative.dvc"],
+  "features": {
+      "ghcr.io/iterative/features/dvc:1": {},
+      "ghcr.io/devcontainers/features/nvidia-cuda:1": {
+          "version": "latest"
+      }
+  },
+  "runArgs": ["--gpus", "all"],
+  "postCreateCommand": "pip3 install --user -r src/requirements.txt"
+}

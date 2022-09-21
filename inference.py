@@ -7,10 +7,12 @@ import json
 import sys
 import os
 import hashlib
+import shutil
 import json
 
 model_name = "model/best_model"
-predictions_folder = "./predictions/"
+predictions_dir = "predictions"
+mispredicted_dir = "mispredicted"
 
 batch_size = 8
 tf.random.set_seed(123)
@@ -42,7 +44,8 @@ if __name__ == "__main__":
         weights=None,
     )
     base_model = tf.keras.Model(
-        base_model.inputs, outputs=[base_model.get_layer("conv2_block3_out").output]
+        base_model.inputs,
+        outputs=[base_model.get_layer("conv2_block3_out").output]
     )
 
     inputs = tf.keras.Input(shape=(256, 256, 3))
@@ -65,18 +68,35 @@ predict = model.predict(test)
 predicted_probs = tf.nn.softmax(predict).numpy()
 pred_indices = np.argmax(predict,-1)
 
-os.mkdir(predictions_folder)
+os.mkdir(predictions_dir)
+os.mkdir(mispredicted_dir)
 for index, predicted_class in enumerate(pred_indices):
     file_path = test.file_paths[index]
     file_name = os.path.basename(file_path)
+    
     md5 = os.path.splitext(file_name)[0].split('-')[-1]
 
+    file_label = os.path.split(os.path.dirname(file_path))[1]
     pred_label = class_names[pred_indices[index]]
     confidence = predicted_probs[index,pred_indices[index]]
+    
+    annotation = {
+        'annotation': {
+            'inference': {
+                'label': pred_label,
+                'confidence': confidence
+            },
+            'data-object-info': {
+                'md5': md5,
+                'path': file_path
+            }
+        }
+    }
 
-    json_string = f'{{ "annotation": {{ "inference": {{ "label": "{pred_label}", "confidence": {confidence} }} }}, "data-object-info": {{ "md5": "{md5}" }} }}'
 
     json_data = json.loads(json_string)
-    with open(predictions_folder + file_name + '.json', 'w', encoding='utf-8') as f:
-        json.dump(json_data, f, ensure_ascii=False, indent=4)
+    with open(os.path.join(predictions_dir, file_name + '.json'), 'w',) as f:
+        json.dump(annotation, f, indent=4)
+        if confidence > 0.9 and file_class != pred_label:
+            shutil.copy(file_path, mispredicted_dir)
         
