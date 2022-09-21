@@ -40,7 +40,5 @@ stages:
     - inference.py
     outs:
     - predictions
-    - mispredicted
     plots:
     - mispredicted
-
