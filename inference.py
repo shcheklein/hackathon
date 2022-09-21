@@ -84,7 +84,7 @@ for index, predicted_class in enumerate(pred_indices):
         'annotation': {
             'inference': {
                 'label': pred_label,
-                'confidence': confidence
+                'confidence': float(confidence)
             },
             'data-object-info': {
                 'md5': md5,
@@ -93,10 +93,8 @@ for index, predicted_class in enumerate(pred_indices):
         }
     }
 
-
-    json_data = json.loads(json_string)
     with open(os.path.join(predictions_dir, file_name + '.json'), 'w',) as f:
         json.dump(annotation, f, indent=4)
-        if confidence > 0.9 and file_class != pred_label:
+        if confidence > 0.9 and file_label != pred_label:
             shutil.copy(file_path, mispredicted_dir)
         

@@ -1,0 +1,65 @@
+schema: '2.0'
+stages:
+  train:
+    cmd:
+    - python train.py
+    deps:
+    - path: data/
+      md5: d72a5a7308094200c74e6e229e230e51.dir
+      size: 132271393
+      nfiles: 9736
+    - path: requirements.txt
+      md5: 1a36c2a51180b8ca690feb02cd3c46ce
+      size: 32
+    - path: train.py
+      md5: 9eb923ca9c75a5f1e12927e1ceb9399b
+      size: 3916
+    params:
+      params.yaml:
+        epochs: 5
+    outs:
+    - path: dvclive.json
+      md5: 9a07b2f3794dd2f9afd65d70c15a09d2
+      size: 210
+    - path: dvclive/scalars/eval/accuracy.tsv
+      md5: 88141af23e0c8940b06d90c7d49bbcc7
+      size: 211
+    - path: dvclive/scalars/eval/loss.tsv
+      md5: 3bec4baf35617f2bdcae7bb0996e0b93
+      size: 206
+    - path: dvclive/scalars/train/accuracy.tsv
+      md5: 23abad70665dc0c8047f801c03978e3c
+      size: 210
+    - path: dvclive/scalars/train/loss.tsv
+      md5: 57823249bad4e7b323460e534a340c4c
+      size: 207
+    - path: evaluation.json
+      md5: 757cdc1b51156b50bd0b0c050cb90d35
+      size: 158
+    - path: model
+      md5: a346f3c416a0bad38454d433c20a7c7f.dir
+      size: 2784925
+      nfiles: 3
+  inference:
+    cmd: python inference.py data/
+    deps:
+    - path: data
+      md5: d72a5a7308094200c74e6e229e230e51.dir
+      size: 132271393
+      nfiles: 9736
+    - path: inference.py
+      md5: 02e26894db06f25892afed58e827ebf8
+      size: 2720
+    - path: model
+      md5: a346f3c416a0bad38454d433c20a7c7f.dir
+      size: 2784925
+      nfiles: 3
+    outs:
+    - path: mispredicted
+      md5: a089d4d4ff8b909414016367ccfd6a67.dir
+      size: 1671448
+      nfiles: 90
+    - path: predictions
+      md5: 28bd506d949447bd9410ff1bc22d830d.dir
+      size: 3098316
+      nfiles: 9708

@@ -24,9 +24,6 @@ user_data = directory
 test_data = directory + "/labelbook" # this can be the labelbook, or any other test set you create
 log_dir="logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 
-tensorboard_callback = tf.keras.callbacks.TensorBoard(
-    log_dir=log_dir, histogram_freq=1)
-
 batch_size = 8
 tf.random.set_seed(123)
 
@@ -108,7 +105,7 @@ if __name__ == "__main__":
         train,
         validation_data=valid,
         epochs=params['epochs'],
-        callbacks=[checkpoint, DvcLiveCallback(), tensorboard_callback],
+        callbacks=[checkpoint, DvcLiveCallback()],
     )
 
     model.load_weights("model/best_model")
