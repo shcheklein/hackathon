@@ -5,7 +5,7 @@
   "features": {
       "ghcr.io/iterative/features/dvc:1": {},
       "ghcr.io/devcontainers/features/nvidia-cuda:1": {
-          "version": "latest"
+          "installCudnn": true
       }
   },
   "runArgs": ["--gpus", "all"],
