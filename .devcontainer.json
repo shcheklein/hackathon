@@ -8,6 +8,5 @@
           "installCudnn": true
       }
   },
-  "runArgs": ["--gpus", "all"],
   "postCreateCommand": "pip3 install --user -r src/requirements.txt"
 }
