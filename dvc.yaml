@@ -1,7 +1,7 @@
 stages:
   train:
     cmd: 
-    - python train.py
+    - python train.py data/
     deps:
     - data/
     - train.py

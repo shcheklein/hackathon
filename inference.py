@@ -1,8 +1,5 @@
 # This inference script prints JSON labels for object in test directory
 
-import tensorflow as tf
-from tensorflow import keras
-import numpy as np
 import json
 import sys
 import os
@@ -10,7 +7,11 @@ import hashlib
 import shutil
 import json
 
-model_name = "model/best_model"
+import tensorflow as tf
+from tensorflow import keras
+import numpy as np
+
+model_name = os.path.join("model", "best_model")
 predictions_dir = "predictions"
 mispredicted_dir = "mispredicted"
 
@@ -22,13 +23,13 @@ class_names=["cat", "dog", "muffin", "croissant"]
 if __name__ == "__main__":
 
     if len(sys.argv) >= 2:
-        test_data = sys.argv[1]
+        data = sys.argv[1]
     else:
-        print(f"Usage: python {sys.argv[0]} <test data directory>")
-        quit()
+        print(f"Usage: python {sys.argv[0]} <data directory>")
+        exit(1)
 
     test = tf.keras.preprocessing.image_dataset_from_directory(
-        test_data,
+        data,
         labels=None,
         label_mode=None,
         shuffle=False,
