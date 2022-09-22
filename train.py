@@ -1,20 +1,16 @@
-import json
 import sys
 import yaml
-import datetime
 import os
 
 import tensorflow as tf
 from tensorflow import keras
-from keras import callbacks
-import numpy as np
 from dvclive import Live
 from dvclive.keras import DvcLiveCallback
 
 
 params = yaml.safe_load(open("params.yaml"))
 
-tf.random.set_seed(param["seed"])
+tf.random.set_seed(params["seed"])
 live = Live("evaluation", report=None)
 
 
@@ -44,23 +40,26 @@ if __name__ == "__main__":
     valid = image_dataset_from_directory(os.path.join(data, 'val'))
     test = image_dataset_from_directory(os.path.join(data, 'labelbook'))
 
-    model = tf.keras.applications.ResNet50(
+    model = keras.Sequential()
+
+    base_model = tf.keras.applications.ResNet50(
         input_shape=(256, 256, 3),
         include_top=False,
-        weights='imagenet'
+        weights=None
     )
-
-    for layer in pretrained_model.layers:
-        layer.trainable=False
-
-    model.add(Flatten())
-    model.add(Dense(512, activation='relu'))
-    model.add(Dense(4, activation='softmax'))
+    
+    model.add(
+        keras.layers.Lambda(keras.applications.resnet50.preprocess_input, 
+                            input_shape=(256, 256, 3)))
+    model.add(base_model)
+    model.add(keras.layers.Flatten())
+    model.add(keras.layers.Dense(512, activation='relu'))
+    model.add(keras.layers.Dense(4, activation='sigmoid'))
     
     model.compile(
         optimizer=tf.keras.optimizers.Adam(learning_rate=params["lr"]),
         loss='categorical_crossentropy',
-        metrics=["accuracy"],
+        metrics=["accuracy"]
     )
     
     model.summary()

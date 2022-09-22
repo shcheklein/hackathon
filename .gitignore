@@ -5,3 +5,5 @@ model/
 predictions/
 mispredicted/
 .vscode/
+/predictions
+/mispredicted
