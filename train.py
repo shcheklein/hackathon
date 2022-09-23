@@ -40,26 +40,27 @@ if __name__ == "__main__":
     valid = image_dataset_from_directory(os.path.join(data, 'val'))
     test = image_dataset_from_directory(os.path.join(data, 'labelbook'))
 
-    model = keras.Sequential()
-
     base_model = tf.keras.applications.ResNet50(
         input_shape=(256, 256, 3),
         include_top=False,
-        weights=None
+        weights=None,
     )
-    
-    model.add(
-        keras.layers.Lambda(keras.applications.resnet50.preprocess_input, 
-                            input_shape=(256, 256, 3)))
-    model.add(base_model)
-    model.add(keras.layers.Flatten())
-    model.add(keras.layers.Dense(512, activation='relu'))
-    model.add(keras.layers.Dense(4, activation='sigmoid'))
-    
+    base_model = tf.keras.Model(
+        base_model.inputs,
+        outputs=[base_model.get_layer("conv2_block3_out").output]
+    )
+
+    inputs = tf.keras.Input(shape=(256, 256, 3))
+    x = tf.keras.applications.resnet.preprocess_input(inputs)
+    x = base_model(x)
+    x = tf.keras.layers.GlobalAveragePooling2D()(x)
+    x = tf.keras.layers.Dense(4, activation='softmax')(x)
+    model = tf.keras.Model(inputs, x)
+
     model.compile(
         optimizer=tf.keras.optimizers.Adam(learning_rate=params["lr"]),
-        loss='categorical_crossentropy',
-        metrics=["accuracy"]
+        loss=tf.keras.losses.CategoricalCrossentropy(),
+        metrics=["accuracy"],
     )
     
     model.summary()

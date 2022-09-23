@@ -7,7 +7,7 @@ stages:
     - train.py
     - requirements.txt
     params:
-    - epochs
+    - params.yaml:
     metrics:
     - dvclive.json:
         cache: false

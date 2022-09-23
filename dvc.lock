@@ -12,33 +12,36 @@ stages:
       md5: 1a36c2a51180b8ca690feb02cd3c46ce
       size: 32
     - path: train.py
-      md5: d6c07f6693a7305d3bdad7562e6dd011
-      size: 2823
+      md5: f89632bdece81dd28c7550b986625edc
+      size: 2772
     params:
       params.yaml:
-        epochs: 10
+        batch_size: 8
+        epochs: 25
+        lr: 0.01
+        seed: 10102022
     outs:
     - path: dvclive.json
-      md5: e6a9be2ed4eff756a82166b5c60e2a6a
-      size: 211
+      md5: 7cee23e5302cabd9a1004de9bd25e30c
+      size: 210
     - path: dvclive/scalars/eval/accuracy.tsv
-      md5: 8a181493b434d1ca9ea2df755fe1b1e7
-      size: 393
+      md5: cce2d2745e77fe865720cf68ccf9d546
+      size: 942
     - path: dvclive/scalars/eval/loss.tsv
-      md5: bd781fa9da60c59bde624d17d4ddef68
-      size: 385
+      md5: 0503530baa568d8d5eee0c585ca50c47
+      size: 936
     - path: dvclive/scalars/train/accuracy.tsv
-      md5: 85328a825bd4232275ae5a6a57b58b67
-      size: 392
+      md5: cde1d96ed6c5bf1fe7c37bc150d43240
+      size: 946
     - path: dvclive/scalars/train/loss.tsv
-      md5: 7c443d526fd6c9b456c1e0740cc7a340
-      size: 383
+      md5: 5700fea6b833f8e6693fa1f75cea13c3
+      size: 938
     - path: evaluation.json
-      md5: 120eeb6e735550b1691a8dd3dc77a526
-      size: 223
+      md5: d8565581bcb1687cbbe4751196d615e3
+      size: 225
     - path: model
-      md5: a34d5919ef6455af416fe8f3f4e42e1e.dir
-      size: 899766167
+      md5: b65b984eeebaea1afdd251105360c143.dir
+      size: 2784925
       nfiles: 3
   inference:
     cmd: python inference.py data/
@@ -48,18 +51,18 @@ stages:
       size: 132271393
       nfiles: 9736
     - path: inference.py
-      md5: e43d4f25d9c57459e68190e37417d555
-      size: 2464
+      md5: 3f11aafecbff3ce01f6c1fdcac796ba1
+      size: 2500
     - path: model
-      md5: 8e2a932d81bceffa483a2ef9b0c0ccce.dir
-      size: 899766167
+      md5: b65b984eeebaea1afdd251105360c143.dir
+      size: 2784925
       nfiles: 3
     outs:
     - path: mispredicted
-      md5: d751713988987e9331980363e24189ce.dir
-      size: 0
-      nfiles: 0
+      md5: 07b4e04b635488e557e8a2320e2874cf.dir
+      size: 240607
+      nfiles: 17
     - path: predictions
-      md5: ee52165598e92149162f3e3a57f0ff5c.dir
-      size: 3101233
+      md5: bb72a7b5be0fd493bd6f61631d7e889c.dir
+      size: 3096304
       nfiles: 9708

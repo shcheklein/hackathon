@@ -1,9 +1,5 @@
-# Ignore everything in this directory
-# Except this file
-data/
-model/
-predictions/
-mispredicted/
-.vscode/
+/data
+/.vscode
 /predictions
 /mispredicted
+/model
