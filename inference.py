@@ -6,6 +6,7 @@ import json
 
 import tensorflow as tf
 import numpy as np
+from train import build_model
 
 model_name = os.path.join("model", "best_model")
 predictions_dir = "predictions"
@@ -29,24 +30,9 @@ if __name__ == "__main__":
         crop_to_aspect_ratio=True,
         shuffle=False
     )
-
-    base_model = tf.keras.applications.ResNet50(
-        input_shape=(256, 256, 3),
-        include_top=False,
-        weights=None,
-    )
-    base_model = tf.keras.Model(
-        base_model.inputs,
-        outputs=[base_model.get_layer("conv2_block3_out").output]
-    )
-
-    inputs = tf.keras.Input(shape=(256, 256, 3))
-    x = tf.keras.applications.resnet.preprocess_input(inputs)
-    x = base_model(x)
-    x = tf.keras.layers.GlobalAveragePooling2D()(x)
-    x = tf.keras.layers.Dense(4, activation='softmax')(x)
-    model = tf.keras.Model(inputs, x)
     
+    model = build_model()
+
     model.load_weights(model_name).expect_partial()
     predict = model.predict(test)
     pred_indices = np.argmax(predict, -1)
@@ -54,6 +40,9 @@ if __name__ == "__main__":
     os.mkdir(predictions_dir)
     os.mkdir(mispredicted_dir)
     
+    for c in class_names:
+        os.mkdir(os.path.join(mispredicted_dir, c))
+
     count = 0
     for index, predicted_class in enumerate(pred_indices):
         file_path = test.file_paths[index]
@@ -81,6 +70,11 @@ if __name__ == "__main__":
         with open(os.path.join(predictions_dir, file_name + '.json'), 'w',) as f:
             json.dump(annotation, f, indent=4)
             if confidence > 0.97 and file_label != pred_label:
-                shutil.copy(file_path, mispredicted_dir)
+                mispredicted_file_name = os.path.join(
+                    mispredicted_dir, 
+                    file_label, 
+                    f"{pred_label}-{file_name}"
+                )
+                shutil.copy(file_path, mispredicted_file_name)
                 count += 1
     print(f"Total mispredicted {count}"  ) 

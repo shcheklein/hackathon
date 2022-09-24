@@ -9,9 +9,7 @@ from dvclive.keras import DvcLiveCallback
 
 
 params = yaml.safe_load(open("params.yaml"))
-
 tf.random.set_seed(params["seed"])
-live = Live("evaluation", report=None)
 
 
 def image_dataset_from_directory(path):
@@ -27,19 +25,7 @@ def image_dataset_from_directory(path):
         crop_to_aspect_ratio=True
     )
 
-
-if __name__ == "__main__":
-
-    if len(sys.argv) == 2:
-        data = sys.argv[1]
-    else:
-        print(f"Usage: python {sys.argv[0]} <data directory>")
-        exit(1)
-
-    train = image_dataset_from_directory(os.path.join(data, 'train'))
-    valid = image_dataset_from_directory(os.path.join(data, 'val'))
-    test = image_dataset_from_directory(os.path.join(data, 'labelbook'))
-
+def build_model():
     base_model = tf.keras.applications.ResNet50(
         input_shape=(256, 256, 3),
         include_top=False,
@@ -55,7 +41,24 @@ if __name__ == "__main__":
     x = base_model(x)
     x = tf.keras.layers.GlobalAveragePooling2D()(x)
     x = tf.keras.layers.Dense(4, activation='softmax')(x)
-    model = tf.keras.Model(inputs, x)
+    return tf.keras.Model(inputs, x)    
+
+
+if __name__ == "__main__":
+
+    live = Live("evaluation", report=None)
+
+    if len(sys.argv) == 2:
+        data = sys.argv[1]
+    else:
+        print(f"Usage: python {sys.argv[0]} <data directory>")
+        exit(1)
+
+    train = image_dataset_from_directory(os.path.join(data, 'train'))
+    valid = image_dataset_from_directory(os.path.join(data, 'val'))
+    test = image_dataset_from_directory(os.path.join(data, 'labelbook'))
+
+    model = build_model()
 
     model.compile(
         optimizer=tf.keras.optimizers.Adam(learning_rate=params["lr"]),

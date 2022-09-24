@@ -9,8 +9,6 @@ stages:
     params:
     - params.yaml:
     metrics:
-    - dvclive.json:
-        cache: false
     - evaluation.json:
         cache: false
     outs:
