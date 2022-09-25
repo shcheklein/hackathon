@@ -46,13 +46,15 @@ def build_model():
 
 if __name__ == "__main__":
 
-    live = Live("evaluation", report=None)
-
     if len(sys.argv) == 2:
         data = sys.argv[1]
     else:
         print(f"Usage: python {sys.argv[0]} <data directory>")
         exit(1)
+
+    logger = DvcLiveCallback(path="evaluation", report=None)
+    live = logger.dvclive
+
 
     train = image_dataset_from_directory(os.path.join(data, 'train'))
     valid = image_dataset_from_directory(os.path.join(data, 'val'))
@@ -85,7 +87,7 @@ if __name__ == "__main__":
         train,
         validation_data=valid,
         epochs=params['epochs'],
-        callbacks=[checkpoint, DvcLiveCallback()],
+        callbacks=[checkpoint, logger],
     )
 
     model.load_weights(os.path.join("model", "best_model"))
