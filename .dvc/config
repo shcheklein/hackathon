@@ -1,0 +1,6 @@
+[core]
+    remote = storage
+[cache]
+    type = "reflink,hardlink,copy"
+['remote "storage"']
+    url = https://remote.dvc.org/hackathon

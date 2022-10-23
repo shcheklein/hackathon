@@ -1,54 +1,42 @@
 stages:
   train:
     cmd: 
-    - python train.py
+    - python train.py data/
     deps:
-    - data/.ldb_workspace
+    - data/
     - train.py
     - requirements.txt
     params:
-    - epochs
+    - params.yaml:
     metrics:
-    - dvclive.json:
-        cache: false
     - evaluation.json:
         cache: false
     outs:
     - model
-    - logs
     plots:
-    - dvclive/scalars/eval/accuracy.tsv:
+    - evaluation/scalars/eval/accuracy.tsv:
         cache: false
         x: step
         y: eval/accuracy
-    - dvclive/scalars/train/accuracy.tsv:
+    - evaluation/scalars/train/accuracy.tsv:
         cache: false
         x: step
         y: train/accuracy
-    - dvclive/scalars/eval/loss.tsv:
+    - evaluation/scalars/eval/loss.tsv:
         cache: false
         x: step
         y: eval/loss
-    - dvclive/scalars/train/loss.tsv:
+    - evaluation/scalars/train/loss.tsv:
         cache: false
         x: step
         y: train/loss
   inference:
-    cmd: python inference.py ./data
+    cmd: python inference.py data/
     deps:
+    - data
     - model
     - inference.py
     outs:
     - predictions
-  misclassification:
-    cmd: 
-    - ldb index predictions/ --annotation-update merge
-    - ldb instantiate ds:root --query 'inference.confidence > `0.9` && label != inference.label' --target ./mispredicted
-    - mkdir mispredicted-json/
-    - mv mispredicted/*.json mispredicted-json/
-    deps:
-    - predictions
-    outs:
-    - mispredicted-json/
     plots:
-    - mispredicted/
+    - mispredicted

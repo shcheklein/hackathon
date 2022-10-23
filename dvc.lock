@@ -2,77 +2,64 @@ schema: '2.0'
 stages:
   train:
     cmd:
-    - python train.py
+    - python train.py data/
     deps:
-    - path: data/.ldb_workspace
-      md5: 302d9deb0e401a85cf4cc77f558e5da8.dir
-      size: 311710
-      nfiles: 9737
+    - path: data/
+      md5: d72a5a7308094200c74e6e229e230e51.dir
+      size: 132271393
+      nfiles: 9736
     - path: requirements.txt
-      md5: 5e4668031b7a851e85559535ee915bc6
-      size: 18
+      md5: 1a36c2a51180b8ca690feb02cd3c46ce
+      size: 32
     - path: train.py
-      md5: 11cfccbb56f39bd715603328aa5ed2e4
-      size: 3947
+      md5: a7ce8e9b284fc8bc90b5c450c035a221
+      size: 2825
     params:
       params.yaml:
-        epochs: 50
+        batch_size: 8
+        epochs: 25
+        lr: 0.01
+        seed: 10102022
     outs:
-    - path: dvclive.json
-      md5: d1be2ab908c9214ed0c2d4bcfc43a88b
-      size: 210
     - path: dvclive/scalars/eval/accuracy.tsv
-      md5: e579b5093e9eb6238708d8cdc5734e2f
-      size: 1866
+      md5: 43c8919a6b511b079d6c4100f24e8810
+      size: 941
     - path: dvclive/scalars/eval/loss.tsv
-      md5: 3412d8b824587a066d18d832876ae4ef
-      size: 1860
+      md5: 27203b93f8065cbbcc15d908eaeaa9c9
+      size: 938
     - path: dvclive/scalars/train/accuracy.tsv
-      md5: 771febeb1411bb068b9e5ede7abbd1c8
-      size: 1868
+      md5: bbae007f686fb6b6c0faa63eda6f52ae
+      size: 946
     - path: dvclive/scalars/train/loss.tsv
-      md5: 4f315219321307985ea2d155ddfe7242
-      size: 1867
+      md5: 4bbce93aa0556bcc6b339cb55ebae4ad
+      size: 940
     - path: evaluation.json
-      md5: ecccd473d73b00e37fba948abece784d
-      size: 138
+      md5: e1b77c8379fd3b53f9712e72e0600ec6
+      size: 225
     - path: model
-      md5: a8506168770e31ef31f4f2a41165eb76.dir
+      md5: 79309ca9df4da4378da7f096c6274eb5.dir
       size: 2784925
       nfiles: 3
   inference:
-    cmd: python inference.py ./data
+    cmd: python inference.py data/
     deps:
+    - path: data
+      md5: d72a5a7308094200c74e6e229e230e51.dir
+      size: 132271393
+      nfiles: 9736
     - path: inference.py
-      md5: c261f915565e433bdf82e0b6df72cda3
-      size: 2621
+      md5: c493f3209ddaca3b0b5bcce7035ced70
+      size: 2281
     - path: model
-      md5: a8506168770e31ef31f4f2a41165eb76.dir
+      md5: 79309ca9df4da4378da7f096c6274eb5.dir
       size: 2784925
       nfiles: 3
     outs:
+    - path: mispredicted
+      md5: a18eb4a87aab44f608353b21552b28c0.dir
+      size: 632556
+      nfiles: 44
     - path: predictions
-      md5: 95b5db2552981ab86192976f4392db94.dir
-      size: 2129670
+      md5: 9aa8a2de6b992682317ef97978e97024.dir
+      size: 3096674
       nfiles: 9708
-  misclassification:
-    cmd:
-    - ldb index predictions/ --annotation-update merge
-    - ldb instantiate ds:root --query 'inference.confidence > `0.9` && label != inference.label'
-      --target ./mispredicted
-    - mkdir mispredicted-json/
-    - mv mispredicted/*.json mispredicted-json/
-    deps:
-    - path: predictions
-      md5: 95b5db2552981ab86192976f4392db94.dir
-      size: 2129670
-      nfiles: 9708
-    outs:
-    - path: mispredicted-json/
-      md5: 31f8fc176ece76eb63124f0de8a0ffc3.dir
-      size: 16248
-      nfiles: 159
-    - path: mispredicted/
-      md5: 827c63bf737d3ced48817bd4a778dec5.dir
-      size: 80863471
-      nfiles: 159

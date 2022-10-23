@@ -1,1 +1,4 @@
-epochs: 50
+epochs: 25
+seed: 10102022
+batch_size: 8
+lr: 0.01

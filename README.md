@@ -1,3 +1,4 @@
-# Hackathon code starter
+# Hackathon
 
-Training and inference template
+Simple training loop to classify dogs, cats, maffins, and croissants.
+
