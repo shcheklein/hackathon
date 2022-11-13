@@ -5,61 +5,61 @@ stages:
     - python train.py data/
     deps:
     - path: data/
-      md5: d72a5a7308094200c74e6e229e230e51.dir
-      size: 132271393
+      md5: dc486b811dba3582d667f8ae84e69a23.dir
+      size: 131292221
       nfiles: 9736
     - path: requirements.txt
       md5: 1a36c2a51180b8ca690feb02cd3c46ce
       size: 32
     - path: train.py
-      md5: a7ce8e9b284fc8bc90b5c450c035a221
-      size: 2825
+      md5: 1cff18e006558880cfaa17c80fd3eb7a
+      size: 2880
     params:
       params.yaml:
         batch_size: 8
-        epochs: 25
+        epochs: 3
         lr: 0.01
         seed: 10102022
     outs:
-    - path: dvclive/scalars/eval/accuracy.tsv
-      md5: 43c8919a6b511b079d6c4100f24e8810
-      size: 941
-    - path: dvclive/scalars/eval/loss.tsv
-      md5: 27203b93f8065cbbcc15d908eaeaa9c9
-      size: 938
-    - path: dvclive/scalars/train/accuracy.tsv
-      md5: bbae007f686fb6b6c0faa63eda6f52ae
-      size: 946
-    - path: dvclive/scalars/train/loss.tsv
-      md5: 4bbce93aa0556bcc6b339cb55ebae4ad
-      size: 940
-    - path: evaluation.json
-      md5: e1b77c8379fd3b53f9712e72e0600ec6
-      size: 225
+    - path: evaluation/metrics.json
+      md5: 144089de5296bf63f65c28d37d7c6b45
+      size: 278
+    - path: evaluation/plots/metrics/eval/accuracy.tsv
+      md5: 578e04e7d4694ca7137a8f0e998082bb
+      size: 82
+    - path: evaluation/plots/metrics/eval/loss.tsv
+      md5: c3a9d1adc624eceda8c7f7fe27799e1a
+      size: 77
+    - path: evaluation/plots/metrics/train/accuracy.tsv
+      md5: b8e18db96518db89b9cb4d4f28f3146d
+      size: 83
+    - path: evaluation/plots/metrics/train/loss.tsv
+      md5: 9affd2baa03c95d4fe2c9035eeafa478
+      size: 79
     - path: model
-      md5: 79309ca9df4da4378da7f096c6274eb5.dir
+      md5: 23cab11d237a2f8cc787d9ce0e3babc1.dir
       size: 2784925
       nfiles: 3
   inference:
     cmd: python inference.py data/
     deps:
     - path: data
-      md5: d72a5a7308094200c74e6e229e230e51.dir
-      size: 132271393
+      md5: dc486b811dba3582d667f8ae84e69a23.dir
+      size: 131292221
       nfiles: 9736
     - path: inference.py
       md5: c493f3209ddaca3b0b5bcce7035ced70
       size: 2281
     - path: model
-      md5: 79309ca9df4da4378da7f096c6274eb5.dir
+      md5: 23cab11d237a2f8cc787d9ce0e3babc1.dir
       size: 2784925
       nfiles: 3
     outs:
     - path: mispredicted
-      md5: a18eb4a87aab44f608353b21552b28c0.dir
-      size: 632556
-      nfiles: 44
+      md5: 85854d8774046af84554d4ad1659183a.dir
+      size: 107197
+      nfiles: 6
     - path: predictions
-      md5: 9aa8a2de6b992682317ef97978e97024.dir
-      size: 3096674
+      md5: f23677c8010baf8a0adc6c1c5ff915b4.dir
+      size: 3096327
       nfiles: 9708

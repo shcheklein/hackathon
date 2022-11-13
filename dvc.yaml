@@ -9,27 +9,27 @@ stages:
     params:
     - params.yaml:
     metrics:
-    - evaluation.json:
+    - evaluation/metrics.json:
         cache: false
     outs:
     - model
     plots:
-    - evaluation/scalars/eval/accuracy.tsv:
-        cache: false
-        x: step
-        y: eval/accuracy
-    - evaluation/scalars/train/accuracy.tsv:
+    - evaluation/plots/metrics/train/accuracy.tsv:
         cache: false
         x: step
         y: train/accuracy
-    - evaluation/scalars/eval/loss.tsv:
+    - evaluation/plots/metrics/eval/accuracy.tsv:
         cache: false
         x: step
-        y: eval/loss
-    - evaluation/scalars/train/loss.tsv:
+        y: eval/accuracy
+    - evaluation/plots/metrics/train/loss.tsv:
         cache: false
         x: step
         y: train/loss
+    - evaluation/plots/metrics/eval/loss.tsv:
+        cache: false
+        x: step
+        y: eval/loss
   inference:
     cmd: python inference.py data/
     deps:

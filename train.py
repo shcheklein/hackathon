@@ -1,14 +1,12 @@
-import sys
-import yaml
 import os
+import sys
 
 import tensorflow as tf
-from tensorflow import keras
+import yaml
+from dvclive.keras import DVCLiveCallback
 from dvclive import Live
-from dvclive.keras import DvcLiveCallback
 
-
-params = yaml.safe_load(open("params.yaml"))
+params = yaml.safe_load(open("params.yaml", encoding="utf-8"))
 tf.random.set_seed(params["seed"])
 
 
@@ -41,7 +39,7 @@ def build_model():
     x = base_model(x)
     x = tf.keras.layers.GlobalAveragePooling2D()(x)
     x = tf.keras.layers.Dense(4, activation='softmax')(x)
-    return tf.keras.Model(inputs, x)    
+    return tf.keras.Model(inputs, x)
 
 
 if __name__ == "__main__":
@@ -50,11 +48,10 @@ if __name__ == "__main__":
         data = sys.argv[1]
     else:
         print(f"Usage: python {sys.argv[0]} <data directory>")
-        exit(1)
+        sys.exit(1)
 
-    logger = DvcLiveCallback(path="evaluation", report=None)
-    live = logger.dvclive
-
+    live = Live(dir="evaluation", report=None)
+    logger = DVCLiveCallback(live=live)
 
     train = image_dataset_from_directory(os.path.join(data, 'train'))
     valid = image_dataset_from_directory(os.path.join(data, 'val'))
@@ -67,11 +64,11 @@ if __name__ == "__main__":
         loss=tf.keras.losses.CategoricalCrossentropy(),
         metrics=["accuracy"],
     )
-    
+
     model.summary()
     loss_0, acc_0 = model.evaluate(valid)
-    live.log("loss_0", loss_0)
-    live.log("acc_0", acc_0)
+    live.log_metric("loss_0", loss_0)
+    live.log_metric("acc_0", acc_0)
     print(f"loss {loss_0}, acc {acc_0}")
 
     checkpoint = tf.keras.callbacks.ModelCheckpoint(
@@ -82,7 +79,7 @@ if __name__ == "__main__":
         save_best_only=True,
         save_weights_only=True,
     )
-    
+
     history = model.fit(
         train,
         validation_data=valid,
@@ -98,7 +95,7 @@ if __name__ == "__main__":
     test_loss, test_acc = model.evaluate(test)
     print(f"test loss {test_loss}, test acc {test_acc}")
 
-    live.log("best_loss", loss)
-    live.log("best_acc", acc)
-    live.log("best_test_loss", test_loss)
-    live.log("best_test_acc", test_acc)
+    live.log_metric("best_loss", loss)
+    live.log_metric("best_acc", acc)
+    live.log_metric("best_test_loss", test_loss)
+    live.log_metric("best_test_acc", test_acc)
