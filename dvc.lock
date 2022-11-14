@@ -17,27 +17,27 @@ stages:
     params:
       params.yaml:
         batch_size: 8
-        epochs: 3
+        epochs: 24
         lr: 0.01
         seed: 10102022
     outs:
     - path: evaluation/metrics.json
-      md5: 144089de5296bf63f65c28d37d7c6b45
-      size: 278
+      md5: b27c1b2f950b78f236e29928560493c9
+      size: 277
     - path: evaluation/plots/metrics/eval/accuracy.tsv
-      md5: 578e04e7d4694ca7137a8f0e998082bb
-      size: 82
+      md5: c864354177b58cf5eae9687131326891
+      size: 535
     - path: evaluation/plots/metrics/eval/loss.tsv
-      md5: c3a9d1adc624eceda8c7f7fe27799e1a
-      size: 77
+      md5: 47743d6066fe193036a3c4188336aa80
+      size: 528
     - path: evaluation/plots/metrics/train/accuracy.tsv
-      md5: b8e18db96518db89b9cb4d4f28f3146d
-      size: 83
+      md5: fb0338fb347d03a7952ec8e6361b95fb
+      size: 535
     - path: evaluation/plots/metrics/train/loss.tsv
-      md5: 9affd2baa03c95d4fe2c9035eeafa478
-      size: 79
+      md5: 47a9fa340156f40b554e3fd8d0ebc865
+      size: 528
     - path: model
-      md5: 23cab11d237a2f8cc787d9ce0e3babc1.dir
+      md5: 53ef3f317f3b8f10c874f218b27b7cfa.dir
       size: 2784925
       nfiles: 3
   inference:
@@ -51,15 +51,15 @@ stages:
       md5: c493f3209ddaca3b0b5bcce7035ced70
       size: 2281
     - path: model
-      md5: 23cab11d237a2f8cc787d9ce0e3babc1.dir
+      md5: 53ef3f317f3b8f10c874f218b27b7cfa.dir
       size: 2784925
       nfiles: 3
     outs:
     - path: mispredicted
-      md5: 85854d8774046af84554d4ad1659183a.dir
-      size: 107197
-      nfiles: 6
+      md5: 2abb39e34153a716c915510e0d036b03.dir
+      size: 603169
+      nfiles: 41
     - path: predictions
-      md5: f23677c8010baf8a0adc6c1c5ff915b4.dir
-      size: 3096327
+      md5: 860f22b27592f7ea647e01e8ad8b6eec.dir
+      size: 3099245
       nfiles: 9708
