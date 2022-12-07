@@ -5,9 +5,7 @@
   "features": {
       "ghcr.io/iterative/features/dvc:1": {},
       "ghcr.io/devcontainers/features/nvidia-cuda:1": {
-          "installCudnn": true,
-          "cudaVersion": "11.2",
-          "cudnnVersion": "8.1.1.33"
+          "installCudnn": true
       }
   },
   "postCreateCommand": "pip3 install --user -r requirements.txt"
