@@ -1,3 +1,5 @@
+# Remove this pin when https://github.com/tensorflow/tensorflow/issues/58681
+# is fixed
 tensorflow==2.10.0
 dvclive
 pyyaml
