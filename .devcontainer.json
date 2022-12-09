@@ -9,5 +9,5 @@
           "installCudnn": true
       }
   },
-  "postCreateCommand": "pip3 install --user -r requirements.txt"
+  "postCreateCommand": "pip3 install --user -r requirements.txt; dvc pull data"
 }
