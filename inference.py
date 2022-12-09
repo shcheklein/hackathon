@@ -29,7 +29,7 @@ if __name__ == "__main__":
         crop_to_aspect_ratio=True,
         shuffle=False
     )
-    
+
     model = build_model()
 
     model.load_weights(model_name).expect_partial()
@@ -70,11 +70,11 @@ if __name__ == "__main__":
             json.dump(annotation, f, indent=4)
             if confidence > 0.97 and file_label != pred_label:
                 mispredicted_file_name = os.path.join(
-                    mispredicted_dir, 
-                    file_label, 
+                    mispredicted_dir,
+                    file_label,
                     f"{pred_label}-{file_name}"
                 )
                 shutil.copy(file_path, mispredicted_file_name)
                 count += 1
-    
+
     print(f"Total mispredicted {count}"  )
