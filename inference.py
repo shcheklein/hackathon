@@ -2,7 +2,6 @@ import json
 import sys
 import os
 import shutil
-import json
 
 import tensorflow as tf
 import numpy as np
@@ -39,7 +38,7 @@ if __name__ == "__main__":
 
     os.mkdir(predictions_dir)
     os.mkdir(mispredicted_dir)
-    
+
     for c in class_names:
         os.mkdir(os.path.join(mispredicted_dir, c))
 
@@ -47,13 +46,13 @@ if __name__ == "__main__":
     for index, predicted_class in enumerate(pred_indices):
         file_path = test.file_paths[index]
         file_name = os.path.basename(file_path)
-        
+
         md5 = os.path.splitext(file_name)[0].split('-')[-1]
 
         file_label = os.path.split(os.path.dirname(file_path))[1]
         pred_label = class_names[pred_indices[index]]
         confidence = predict[index, pred_indices[index]]
-        
+
         annotation = {
             'annotation': {
                 'inference': {
@@ -77,4 +76,5 @@ if __name__ == "__main__":
                 )
                 shutil.copy(file_path, mispredicted_file_name)
                 count += 1
-    print(f"Total mispredicted {count}"  ) 
+    
+    print(f"Total mispredicted {count}"  )

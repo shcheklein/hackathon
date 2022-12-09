@@ -23,6 +23,7 @@ def image_dataset_from_directory(path):
         crop_to_aspect_ratio=True
     )
 
+
 def build_model():
     base_model = tf.keras.applications.ResNet50(
         input_shape=(256, 256, 3),
@@ -67,8 +68,8 @@ if __name__ == "__main__":
 
     model.summary()
     loss_0, acc_0 = model.evaluate(valid)
-    live.log_metric("loss_0", loss_0)
-    live.log_metric("acc_0", acc_0)
+    live.summary["loss_0"] = loss_0
+    live.summary["acc_0"] = acc_0
     print(f"loss {loss_0}, acc {acc_0}")
 
     checkpoint = tf.keras.callbacks.ModelCheckpoint(
@@ -95,7 +96,7 @@ if __name__ == "__main__":
     test_loss, test_acc = model.evaluate(test)
     print(f"test loss {test_loss}, test acc {test_acc}")
 
-    live.log_metric("best_loss", loss)
-    live.log_metric("best_acc", acc)
-    live.log_metric("best_test_loss", test_loss)
-    live.log_metric("best_test_acc", test_acc)
+    live.summary["best_loss"] = loss
+    live.summary["best_acc"] = acc
+    live.summary["best_test_loss"] = loss
+    live.summary["best_test_acc"] = acc
