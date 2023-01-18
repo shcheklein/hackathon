@@ -8,28 +8,22 @@ stages:
       md5: dc486b811dba3582d667f8ae84e69a23.dir
       size: 131292221
       nfiles: 9736
+    - path: params.yaml
+      md5: b257aeb203c6e4ac22c51d9cedcd70f1
+      size: 49
     - path: requirements.txt
       md5: cf5097f7735df40d4e6e3acbc6e878b1
       size: 121
     - path: train.py
       md5: 3ceeae50e44c37e9f828c07fbaad953a
       size: 2884
-    params:
-      params.yaml:
-        batch_size: 8
-        epochs: 25
-        lr: 0.01
-        seed: 10102022
     outs:
-    - path: evaluation/metrics.json
-      md5: cead62ce56ef606fb3e897e7629ac5f9
-      size: 432
-    - path: evaluation/plots/metrics
-      md5: 246c0cb7e9ab41674c7fe26caccc9a87.dir
-      size: 2214
-      nfiles: 4
+    - path: evaluation
+      md5: 0bc0d312e40de050a95e50f701546333.dir
+      size: 2390
+      nfiles: 5
     - path: model
-      md5: 949edbf2e31727f220ac9332d43c5e57.dir
+      md5: adefd1cc3543ac4a177cc679de679aa8.dir
       size: 2784925
       nfiles: 3
   inference:
@@ -43,15 +37,15 @@ stages:
       md5: e0cdb83c7bdbcb7356bd9504d64f01b4
       size: 2243
     - path: model
-      md5: 949edbf2e31727f220ac9332d43c5e57.dir
+      md5: adefd1cc3543ac4a177cc679de679aa8.dir
       size: 2784925
       nfiles: 3
     outs:
     - path: mispredicted
-      md5: 6d90d3ea5fa761a36535143836713f48.dir
-      size: 917949
-      nfiles: 60
+      md5: 1aa39d5fcbfe6d580e31969b70ea20b5.dir
+      size: 557225
+      nfiles: 34
     - path: predictions
-      md5: 56c6c04f1f5a10d7afa68c9b9e46f81d.dir
-      size: 3097313
+      md5: fb4551e84f32e41351b31dec0fba98ce.dir
+      size: 3097921
       nfiles: 9708

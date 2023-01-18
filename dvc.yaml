@@ -8,6 +8,10 @@ plots:
         y:
           evaluation/plots/metrics/train/accuracy.tsv: train/accuracy
           evaluation/plots/metrics/eval/accuracy.tsv: eval/accuracy
+metrics:
+    - evaluation/metrics.json
+params:
+    - params.yaml
 stages:
   train:
     cmd: 
@@ -16,14 +20,10 @@ stages:
     - data/
     - train.py
     - requirements.txt
-    params:
-    - params.yaml:
-    metrics:
-    - evaluation/metrics.json:
-        cache: false
+    - params.yaml
     outs:
     - model
-    - evaluation/plots/metrics:
+    - evaluation:
         cache: false
   inference:
     cmd: python inference.py data/
