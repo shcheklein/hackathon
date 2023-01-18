@@ -100,3 +100,5 @@ if __name__ == "__main__":
     live.summary["best_acc"] = acc
     live.summary["best_test_loss"] = loss
     live.summary["best_test_acc"] = acc
+
+    live.make_summary()

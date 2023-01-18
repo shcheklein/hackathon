@@ -9,35 +9,27 @@ stages:
       size: 131292221
       nfiles: 9736
     - path: requirements.txt
-      md5: 1a36c2a51180b8ca690feb02cd3c46ce
-      size: 32
+      md5: cf5097f7735df40d4e6e3acbc6e878b1
+      size: 121
     - path: train.py
-      md5: 1cff18e006558880cfaa17c80fd3eb7a
-      size: 2880
+      md5: 3ceeae50e44c37e9f828c07fbaad953a
+      size: 2884
     params:
       params.yaml:
         batch_size: 8
-        epochs: 24
+        epochs: 25
         lr: 0.01
         seed: 10102022
     outs:
     - path: evaluation/metrics.json
-      md5: b27c1b2f950b78f236e29928560493c9
-      size: 277
-    - path: evaluation/plots/metrics/eval/accuracy.tsv
-      md5: c864354177b58cf5eae9687131326891
-      size: 535
-    - path: evaluation/plots/metrics/eval/loss.tsv
-      md5: 47743d6066fe193036a3c4188336aa80
-      size: 528
-    - path: evaluation/plots/metrics/train/accuracy.tsv
-      md5: fb0338fb347d03a7952ec8e6361b95fb
-      size: 535
-    - path: evaluation/plots/metrics/train/loss.tsv
-      md5: 47a9fa340156f40b554e3fd8d0ebc865
-      size: 528
+      md5: cead62ce56ef606fb3e897e7629ac5f9
+      size: 432
+    - path: evaluation/plots/metrics
+      md5: 246c0cb7e9ab41674c7fe26caccc9a87.dir
+      size: 2214
+      nfiles: 4
     - path: model
-      md5: 53ef3f317f3b8f10c874f218b27b7cfa.dir
+      md5: 949edbf2e31727f220ac9332d43c5e57.dir
       size: 2784925
       nfiles: 3
   inference:
@@ -48,18 +40,18 @@ stages:
       size: 131292221
       nfiles: 9736
     - path: inference.py
-      md5: c493f3209ddaca3b0b5bcce7035ced70
-      size: 2281
+      md5: e0cdb83c7bdbcb7356bd9504d64f01b4
+      size: 2243
     - path: model
-      md5: 53ef3f317f3b8f10c874f218b27b7cfa.dir
+      md5: 949edbf2e31727f220ac9332d43c5e57.dir
       size: 2784925
       nfiles: 3
     outs:
     - path: mispredicted
-      md5: 2abb39e34153a716c915510e0d036b03.dir
-      size: 603169
-      nfiles: 41
+      md5: 6d90d3ea5fa761a36535143836713f48.dir
+      size: 917949
+      nfiles: 60
     - path: predictions
-      md5: 860f22b27592f7ea647e01e8ad8b6eec.dir
-      size: 3099245
+      md5: 56c6c04f1f5a10d7afa68c9b9e46f81d.dir
+      size: 3097313
       nfiles: 9708
