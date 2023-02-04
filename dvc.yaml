@@ -2,12 +2,12 @@ plots:
     - mispredicted
     - loss:
         y:
-          evaluation/plots/metrics/train/loss.tsv: train/loss
-          evaluation/plots/metrics/eval/loss.tsv: eval/loss
+          evaluation/plots/metrics/train/loss.tsv: loss
+          evaluation/plots/metrics/eval/loss.tsv: loss
     - accuracy:
         y:
-          evaluation/plots/metrics/train/accuracy.tsv: train/accuracy
-          evaluation/plots/metrics/eval/accuracy.tsv: eval/accuracy
+          evaluation/plots/metrics/train/accuracy.tsv: accuracy
+          evaluation/plots/metrics/eval/accuracy.tsv: accuracy
 metrics:
     - evaluation/metrics.json
 params:

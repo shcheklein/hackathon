@@ -51,7 +51,7 @@ if __name__ == "__main__":
         print(f"Usage: python {sys.argv[0]} <data directory>")
         sys.exit(1)
 
-    live = Live(dir="evaluation", report=None)
+    live = Live(dir="evaluation", report=None, dvcyaml=False)
     logger = DVCLiveCallback(live=live)
 
     train = image_dataset_from_directory(os.path.join(data, 'train'))
