@@ -1,7 +1,7 @@
 name: Run an Experiment
 on: push
-  branches:
-    - '!main'
+  branches-ignore:
+    - main
 jobs:
   deploy-runner:
     runs-on: ubuntu-latest
