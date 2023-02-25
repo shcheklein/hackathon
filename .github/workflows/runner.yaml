@@ -3,6 +3,9 @@ on:
   push:
     branches-ignore:
       - main
+permissions:
+  contents: write
+  id-token: write
 jobs:
   deploy-runner:
     runs-on: ubuntu-latest
