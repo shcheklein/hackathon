@@ -1,5 +1,7 @@
-name: Experiment Runner
+name: Run an Experiment
 on: push
+  branches:
+    - '!main'
 jobs:
   deploy-runner:
     runs-on: ubuntu-latest
@@ -8,9 +10,9 @@ jobs:
       - uses: iterative/setup-cml@v1
       - uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-region: us-west-2
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+          role-to-assume: arn:aws:iam::342840881361:role/SandboxUser
+          role-duration-seconds: 43200
       - name: Create Runner
         env:
           REPO_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
@@ -33,33 +35,19 @@ jobs:
       - uses: actions/checkout@v3
       - uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-region: us-west-2
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+          role-to-assume: arn:aws:iam::342840881361:role/SandboxUser
+          role-duration-seconds: 43200
       - name: training
         env:
           REPO_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
-          # Setup project
           pip install -r requirements.txt
-
-          # Get data and artifacsts from DVC remote
           dvc pull
-
-          # Run pipeline
           dvc repro
-
-          # Compare metrics to main
           git fetch --prune
-
           echo "# Metrics" >> report.md
           dvc metrics diff --show-md main >> report.md
-
-          # Create report
-          cml comment create report.md
-
-          # Create Pull Request with code and metadata changes
-          cml pr create .
-
-          # Push new data and artifacts to DVC remote
           dvc push
+          cml pr --squash --skip-ci .
+          cml comment create --pr --publish results/evaluate/report.md
