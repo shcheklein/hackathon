@@ -54,6 +54,6 @@ jobs:
           git fetch --prune
           echo "# Metrics" >> report.md
           dvc metrics diff --show-md main >> report.md
-          dvc remote add -d s3://dvc-public/remote/hackathon
+          dvc remote add -d s3remote s3://dvc-public/remote/hackathon
           dvc push
           cml comment update --pr --publish results/evaluate/report.md
