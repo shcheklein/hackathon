@@ -1,0 +1,5 @@
+hackathon:
+  labels:
+  - cv
+  path: model
+  type: model
