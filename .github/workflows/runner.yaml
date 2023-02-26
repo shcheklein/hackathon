@@ -50,7 +50,7 @@ jobs:
         run: |
           pip install -r requirements.txt
           dvc pull
-          dvc exp run
+          dvc repro
           git fetch --prune
           echo "# Metrics" >> report.md
           dvc metrics diff --show-md main >> report.md
