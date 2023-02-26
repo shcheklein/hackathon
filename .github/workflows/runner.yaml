@@ -50,10 +50,11 @@ jobs:
         run: |
           pip install -r requirements.txt
           dvc pull
-          dvc repro
+          dvc exp run
           git fetch --prune
           echo "# Metrics" >> report.md
           dvc metrics diff --show-md main >> report.md
           dvc remote add -d s3remote s3://dvc-public/remote/hackathon
           dvc push
-          cml comment update --pr --publish results/evaluate/report.md
+          cml pr --squash --skip-ci .
+          cml comment update --pr --publish report.md
