@@ -23,6 +23,7 @@ stages:
     - params.yaml
     outs:
     - model
+    - models/ski-defects-small-labels/yolov8-ski-defects-small-labels-1280.pt
     - evaluation:
         cache: false
   inference:

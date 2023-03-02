@@ -23,9 +23,12 @@ stages:
       size: 2632
       nfiles: 5
     - path: model
-      md5: ef599e9927590136f086f4cc7984a3d4.dir
-      size: 2784925
+      md5: 47e7aaec2c5a3e1697831a9019cbbfbd.dir
+      size: 2784940
       nfiles: 3
+    - path: models/ski-defects-small-labels/yolov8-ski-defects-small-labels-1280.pt
+      md5: f5a16c4789bdb153688932f80c98c9c7
+      size: 2773636
   inference:
     cmd: python inference.py data/
     deps:
@@ -37,15 +40,15 @@ stages:
       md5: e0cdb83c7bdbcb7356bd9504d64f01b4
       size: 2243
     - path: model
-      md5: ef599e9927590136f086f4cc7984a3d4.dir
-      size: 2784925
+      md5: 47e7aaec2c5a3e1697831a9019cbbfbd.dir
+      size: 2784940
       nfiles: 3
     outs:
     - path: mispredicted
-      md5: aa33f68e5b9d60903179990a14d3b1a1.dir
-      size: 494360
-      nfiles: 32
+      md5: 5b081587c708168652f2a465ada133b8.dir
+      size: 284324
+      nfiles: 20
     - path: predictions
-      md5: f341885c46f1289f06e13e4aa0e72552.dir
-      size: 3097149
+      md5: 1e89d8980077540f60b8e7b6022cfdf8.dir
+      size: 3096529
       nfiles: 9708

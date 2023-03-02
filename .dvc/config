@@ -1,6 +1,8 @@
 [core]
-    remote = storage
+    remote = s3storage
 [cache]
     type = "reflink,hardlink,copy"
 ['remote "storage"']
     url = https://remote.dvc.org/hackathon
+['remote "s3storage"']
+    url = s3://dvc-public/remote/hackathon
