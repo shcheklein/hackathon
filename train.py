@@ -51,9 +51,6 @@ if __name__ == "__main__":
         print(f"Usage: python {sys.argv[0]} <data directory>")
         sys.exit(1)
 
-    live = Live(dir="evaluation", report=None, dvcyaml=False)
-    logger = DVCLiveCallback(live=live)
-
     train = image_dataset_from_directory(os.path.join(data, 'train'))
     valid = image_dataset_from_directory(os.path.join(data, 'val'))
     test = image_dataset_from_directory(os.path.join(data, 'labelbook'))
@@ -67,10 +64,6 @@ if __name__ == "__main__":
     )
 
     model.summary()
-    loss_0, acc_0 = model.evaluate(valid)
-    live.summary["loss_0"] = loss_0
-    live.summary["acc_0"] = acc_0
-    print(f"loss {loss_0}, acc {acc_0}")
 
     checkpoint = tf.keras.callbacks.ModelCheckpoint(
         os.path.join("model", "best_model"),
@@ -81,24 +74,29 @@ if __name__ == "__main__":
         save_weights_only=True,
     )
 
-    history = model.fit(
-        train,
-        validation_data=valid,
-        epochs=params['epochs'],
-        callbacks=[checkpoint, logger],
-    )
+    with Live(dir="evaluation", report=None, dvcyaml=False) as live:
+        loss_0, acc_0 = model.evaluate(valid)
+        live.summary["loss_0"] = loss_0
+        live.summary["acc_0"] = acc_0
+        print(f"loss {loss_0}, acc {acc_0}")
+ 
+        logger = DVCLiveCallback(live=live)
+        history = model.fit(
+            train,
+            validation_data=valid,
+            epochs=params['epochs'],
+            callbacks=[checkpoint, logger],
+        )
 
-    model.load_weights(os.path.join("model", "best_model"))
+        model.load_weights(os.path.join("model", "best_model"))
 
-    loss, acc = model.evaluate(valid)
-    print(f"final loss {loss}, final acc {acc}")
+        loss, acc = model.evaluate(valid)
+        print(f"final loss {loss}, final acc {acc}")
 
-    test_loss, test_acc = model.evaluate(test)
-    print(f"test loss {test_loss}, test acc {test_acc}")
+        test_loss, test_acc = model.evaluate(test)
+        print(f"test loss {test_loss}, test acc {test_acc}")
 
-    live.summary["best_loss"] = loss
-    live.summary["best_acc"] = acc
-    live.summary["best_test_loss"] = loss
-    live.summary["best_test_acc"] = acc
-
-    live.make_summary()
+        live.summary["best_loss"] = loss
+        live.summary["best_acc"] = acc
+        live.summary["best_test_loss"] = loss
+        live.summary["best_test_acc"] = acc
