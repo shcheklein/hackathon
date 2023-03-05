@@ -52,6 +52,7 @@ jobs:
           DVCLIVE_LOGLEVEL: DEBUG
         run: |
           pip install -r requirements.txt
+          pip install "dvc[s3]"
           dvc pull
           dvc exp run
           git fetch --prune
