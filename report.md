@@ -26,3 +26,18 @@
 | evaluation/metrics.json | train.accuracy | 0.72606  | 0.66013     | -0.06593  |
 | evaluation/metrics.json | train.loss     | 0.65006  | 0.76443     | 0.11436   |
 
+# Metrics
+| Path                    | Metric         | main    | workspace   | Change   |
+|-------------------------|----------------|---------|-------------|----------|
+| evaluation/metrics.json | acc_0          | 0.20662 | 0.25176     | 0.04514  |
+| evaluation/metrics.json | best_acc       | 0.68706 | 0.65898     | -0.02808 |
+| evaluation/metrics.json | best_loss      | 0.73959 | 0.795       | 0.05541  |
+| evaluation/metrics.json | best_test_acc  | 0.68706 | 0.66416     | -0.0229  |
+| evaluation/metrics.json | best_test_loss | 0.73959 | 0.78762     | 0.04803  |
+| evaluation/metrics.json | eval.accuracy  | 0.665   | 0.63089     | -0.0341  |
+| evaluation/metrics.json | eval.loss      | 0.77977 | 0.83117     | 0.05139  |
+| evaluation/metrics.json | loss_0         | 14.1246 | 9.33784     | -4.78675 |
+| evaluation/metrics.json | step           | 25      | 24          | -1       |
+| evaluation/metrics.json | train.accuracy | 0.66013 | 0.63414     | -0.02599 |
+| evaluation/metrics.json | train.loss     | 0.76443 | 0.79949     | 0.03507  |
+
