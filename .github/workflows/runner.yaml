@@ -27,9 +27,8 @@ jobs:
             --labels=cml \
             --cloud=aws \
             --cloud-region=us-west-2 \
-            --cloud-gpu=v100 \
             --cloud-hdd-size=100 \
-            --cloud-type=l
+            --cloud-type=t3.medium
   runner-job:
     needs: deploy-runner
     runs-on: [ self-hosted, cml ]
@@ -53,12 +52,7 @@ jobs:
         run: |
           pip install -r requirements.txt
           pip install "dvc[s3]"
-          dvc pull
-          dvc exp run
+          dvc doctor
           git fetch --prune
-          echo "# Metrics" >> report.md
-          dvc metrics diff --show-md main >> report.md
-          dvc remote add -d s3remote s3://dvc-public/remote/hackathon
-          dvc push
-          cml pr --squash --skip-ci .
-          cml comment update --pr --publish report.md
+          echo "reproduce" >> report.md
+          cml comment update --publish report.md
