@@ -1,20 +1,20 @@
 plots:
-    - mispredicted
-    - loss:
-        y:
-          evaluation/plots/metrics/train/loss.tsv: loss
-          evaluation/plots/metrics/eval/loss.tsv: loss
-    - accuracy:
-        y:
-          evaluation/plots/metrics/train/accuracy.tsv: accuracy
-          evaluation/plots/metrics/eval/accuracy.tsv: accuracy
+- mispredicted
+- loss:
+    y:
+      evaluation/plots/metrics/train/loss.tsv: loss
+      evaluation/plots/metrics/eval/loss.tsv: loss
+- accuracy:
+    y:
+      evaluation/plots/metrics/train/accuracy.tsv: accuracy
+      evaluation/plots/metrics/eval/accuracy.tsv: accuracy
 metrics:
-    - evaluation/metrics.json
+- evaluation/metrics.json
 params:
-    - params.yaml
+- params.yaml
 stages:
   train:
-    cmd: 
+    cmd:
     - python train.py data/
     deps:
     - data/
@@ -34,3 +34,9 @@ stages:
     outs:
     - predictions
     - mispredicted
+artifacts:
+  hackathon:
+    path: model
+    type: model
+    labels:
+    - cv
