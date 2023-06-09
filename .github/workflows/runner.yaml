@@ -60,6 +60,5 @@ jobs:
           dvc metrics diff --show-md main >> report.md
           dvc remote add -d s3remote s3://dvc-public/remote/hackathon
           dvc push
-          dvc exp push origin --rev HEAD
           cml pr --squash --skip-ci .
           cml comment update --pr --publish report.md
