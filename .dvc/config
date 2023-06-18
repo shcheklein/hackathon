@@ -4,3 +4,5 @@
     type = "reflink,hardlink,copy"
 ['remote "storage"']
     url = https://remote.dvc.org/hackathon
+['remote "s3remote"']
+    url = s3://dvc-public/remote/hackathon
