@@ -54,7 +54,7 @@ jobs:
           pip install -r requirements.txt
           git fetch --prune
 
-          dvc exp run --pull --allow-missing
+          dvc exp run --pull
           dvc push -r s3remote
 
           cml pr --squash --skip-ci .
