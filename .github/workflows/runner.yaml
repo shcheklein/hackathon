@@ -23,7 +23,6 @@ jobs:
           REPO_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
           cml runner launch --single \
-            --cloud-spot \
             --labels=cml \
             --cloud=aws \
             --cloud-region=us-west-2 \
