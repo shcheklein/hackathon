@@ -55,7 +55,7 @@ jobs:
           git fetch --prune
 
           dvc exp run --pull
-          dvc push -r s3remote
+          dvc exp push origin --rev HEAD -r s3remote
 
           cml pr --squash --skip-ci .
           echo "# Metrics" > report.md
