@@ -50,6 +50,7 @@ jobs:
           STUDIO_REPO_URL: ${{ secrets.STUDIO_REPO_URL }}
           DVCLIVE_LOGLEVEL: DEBUG
         run: |
+          cml ci
           pip install -r requirements.txt
           git fetch --prune
 
