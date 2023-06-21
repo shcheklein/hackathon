@@ -47,7 +47,6 @@ jobs:
         env:
           REPO_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           STUDIO_TOKEN: ${{ secrets.STUDIO_TOKEN }}
-          STUDIO_REPO_URL: ${{ secrets.STUDIO_REPO_URL }}
           DVCLIVE_LOGLEVEL: DEBUG
         run: |
           cml ci
@@ -55,7 +54,8 @@ jobs:
 
           dvc exp run --pull
           dvc exp push origin --rev HEAD -r s3remote
-
+          
+          git fetch --prune
           cml pr --squash --skip-ci .
           echo "# Metrics" > report.md
           dvc metrics diff --md main >> report.md
