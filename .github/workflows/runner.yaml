@@ -52,7 +52,6 @@ jobs:
         run: |
           cml ci
           pip install -r requirements.txt
-          git fetch --prune
 
           dvc exp run --pull
           dvc exp push origin --rev HEAD -r s3remote
