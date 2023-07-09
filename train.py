@@ -76,10 +76,10 @@ if __name__ == "__main__":
 
     with Live(dir="evaluation", report=None, dvcyaml=False) as live:
         loss_0, acc_0 = model.evaluate(valid)
-        live.summary["loss_0"] = loss_0
-        live.summary["acc_0"] = acc_0
+        live.log_metric("loss_0", loss_0, plot=False)
+        live.log_metric("acc_0", acc_0, plot=False)
         print(f"loss {loss_0}, acc {acc_0}")
- 
+
         logger = DVCLiveCallback(live=live)
         history = model.fit(
             train,
@@ -96,7 +96,7 @@ if __name__ == "__main__":
         test_loss, test_acc = model.evaluate(test)
         print(f"test loss {test_loss}, test acc {test_acc}")
 
-        live.summary["best_loss"] = loss
-        live.summary["best_acc"] = acc
-        live.summary["best_test_loss"] = test_loss
-        live.summary["best_test_acc"] = test_acc
+        live.log_metric("best_loss", loss, plot=False)
+        live.log_metric("best_acc", acc, plot=False)
+        live.log_metric("best_test_loss", test_loss, plot=False)
+        live.log_metric("best_test_acc", test_acc, plot=False)
