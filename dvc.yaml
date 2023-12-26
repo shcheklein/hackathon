@@ -40,3 +40,6 @@ artifacts:
     type: model
     labels:
     - cv
+  test-model:
+    path: test-model
+    type: model
